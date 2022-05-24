@@ -1,24 +1,33 @@
 {
-  "name": "phaser3-ts-snowpack-eslint",
-  "version": "1.0.0",
-  "description": "A modern Phaser 3 template with TypeScript, Snowpack & ESLint",
-  "main": "src/main.ts",
-  "scripts": {
-    "start": "snowpack dev",
-    "prebuild": "tsc && npm run lint",
-    "build": "snowpack build",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "paulasantamaria",
-  "license": "MIT",
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
-    "eslint": "^8.12.0",
-    "phaser": "^3.55.2",
-    "snowpack": "^3.8.8",
-    "typescript": "^4.6.3"
-  }
+    "name": "ball",
+    "version": "1.0.0",
+    "description": "ball",
+    "main": "src/main.ts",
+    "scripts": {
+        "start": "snowpack dev",
+        "prebuild": "tsc && npm run lint",
+        "build": "snowpack build",
+        "lint": "eslint src --cache --ext .ts",
+        "lint:fix": "eslint src --cache --ext .ts --fix",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Ureium",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/lodash": "^4.14.182",
+        "@typescript-eslint/eslint-plugin": "^5.25.0",
+        "@typescript-eslint/parser": "^5.25.0",
+        "eslint": "^8.16.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-import-resolver-typescript": "^2.7.1",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "phaser": "^3.55.2",
+        "prettier": "^2.6.2",
+        "snowpack": "^3.8.8",
+        "typescript": "^4.6.3"
+    },
+    "dependencies": {
+        "lodash": "^4.17.21"
+    }
 }

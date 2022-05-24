@@ -1,20 +1,31 @@
-import Phaser from 'phaser';
+import Phaser from "phaser";
 
-import PreloaderScene from './scenes/PreloaderScene';
-import InitialScene from './scenes/InitialScene';
+import PreloaderScene from "./scenes/PreloaderScene";
+import MainGameScene from "./scenes/MainGameScene";
 
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: window.innerWidth - 40,
+    height: window.innerHeight - 20,
     physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 500 }
+        default: "matter",
+        matter: {
+            enableSleeping: false,
+            debug: {
+                showBody: true,
+                showStaticBody: true,
+                showVelocity: true,
+                showBounds: true
+            }
         }
     },
-    scene: [PreloaderScene, InitialScene],
-    backgroundColor: '#21213B'
-};
 
+    scene: [PreloaderScene, MainGameScene],
+    backgroundColor: "#21213B"
+};
+export const windowGameSize = {
+    width: window.innerWidth - 40,
+    height: window.innerHeight - 20
+};
+console.log(window.innerWidth, window.innerHeight);
 export default new Phaser.Game(config);

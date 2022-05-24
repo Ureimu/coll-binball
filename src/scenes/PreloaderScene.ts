@@ -1,16 +1,18 @@
-import Phaser from 'phaser';
+import Phaser from "phaser";
 
 export default class Preloader extends Phaser.Scene {
-    constructor() {
-        super('preloader');
+    public constructor() {
+        super("preloader");
     }
 
-    preload(): void {
-        this.load.image('acho', 'assets/acho.png');
-        this.load.image('ground', 'assets/ground.png');
+    public preload(): void {
+        this.load.image("acho", "assets/acho.png");
+        this.load.image("ground", "assets/ground.png");
+        this.scale.autoCenter = 2;
+        this.scale.setMaxZoom();
     }
 
-    create(): void {
-        this.scene.start('initial');
+    public create(): void {
+        this.scene.start("mainGame");
     }
 }
