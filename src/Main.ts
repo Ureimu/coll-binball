@@ -10,16 +10,14 @@ const config: Phaser.Types.Core.GameConfig = {
     physics: {
         default: "matter",
         matter: {
-            enableSleeping: false,
+            enableSleeping: true,
             debug: {
-                showBody: true,
+                showBody: false,
                 showStaticBody: true,
-                showVelocity: true,
-                showBounds: true
+                showVelocity: false
             }
         }
     },
-
     scene: [PreloaderScene, MainGameScene],
     backgroundColor: "#21213B"
 };

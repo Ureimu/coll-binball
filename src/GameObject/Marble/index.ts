@@ -1,5 +1,9 @@
 import { t } from "../data";
+import { SnagCategory } from "../Snag";
+import { SnagWallCategory } from "../Snag/wall";
 import { SpecDataByType } from "../type";
+import { marbleKnife } from "./knife";
+import { marbleStone } from "./stone";
 import { MarbleType } from "./type";
 
 export interface MarbleInitOpts {
@@ -9,19 +13,35 @@ export interface MarbleInitOpts {
 export interface Marble {
     type: `marble:${string}`;
     criticallyStrike: boolean;
+    totalDamage: number;
     damage: number;
     csDamage: number;
     readyToShoot: boolean;
 }
+export const MarbleCategory = 2 ** 2;
 export function initMarble<T extends MarbleType>(
     marble: Phaser.Physics.Matter.Sprite,
     type: T,
     initData: SpecDataByType<T>
 ): void {
-    marble.setData("type", type);
-    t.setTypedData(marble, initData);
-    marble.setCircle(10);
+    t.recordType(marble, type);
+    t.setData(marble, initData);
+    marble.setScale(0.12, 0.12);
+    marble.setCircle(12);
     marble.setIgnoreGravity(true);
     marble.setInteractive();
-    marble.setData("readyToShoot", true);
+    marble.setCollisionCategory(MarbleCategory);
+    // eslint-disable-next-line no-bitwise
+    marble.setCollidesWith(SnagCategory | SnagWallCategory);
+}
+
+const marbleCreatorList: {
+    [T in MarbleType]: (scene: Phaser.Scene, x: number, y: number) => Phaser.Physics.Matter.Sprite;
+} = {
+    "marble:stone": marbleStone,
+    "marble:knife": marbleKnife
+};
+
+export function addMarble(type: MarbleType, scene: Phaser.Scene, x: number, y: number) {
+    return marbleCreatorList[type](scene, x, y);
 }

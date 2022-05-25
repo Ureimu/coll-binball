@@ -6,7 +6,7 @@ export function testMap(scene: Phaser.Scene, border: ArenaBorder): SnagMapData {
     const matter = scene.matter;
     //  Create the bricks
     const bricksList: Phaser.Physics.Matter.Sprite[] = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 200; i++) {
         bricksList.push(
             snagNormalSnag(
                 scene,

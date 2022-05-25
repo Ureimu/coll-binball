@@ -1,3 +1,4 @@
+import { snagWall } from "../../GameObject/Snag/wall";
 import { windowGameSize } from "../../Main";
 export interface ArenaBorder {
     width: number;
@@ -12,28 +13,29 @@ export function createBorder(scene: Phaser.Scene, opts: { width: number; height:
     const picWidth = 80;
     const picHeight = 800;
 
-    const leftWall = scene.matter.add.image(
+    const leftWall = snagWall(
+        scene,
         windowGameSize.width / 2 - arenaWidth / 2 - picWidth / 2,
-        windowGameSize.height - arenaHeight / 2,
-        "ground"
+        windowGameSize.height - arenaHeight / 2
     );
     leftWall.setStatic(true);
     leftWall.setRotation(Math.PI / 2);
     leftWall.flipX = true;
 
-    const rightWall = scene.matter.add.image(
+    const rightWall = snagWall(
+        scene,
         windowGameSize.width / 2 + arenaWidth / 2 + picWidth / 2,
-        windowGameSize.height - arenaHeight / 2,
-        "ground"
+        windowGameSize.height - arenaHeight / 2
     );
     rightWall.setStatic(true);
     rightWall.setRotation(Math.PI / 2);
     leftWall.flipX = true;
     rightWall.flipY = true;
 
-    const topWall = scene.matter.add
-        .image(windowGameSize.width / 2, rightWall.getBounds().top - 40, "ground")
-        .setScale((arenaWidth + 2 * picWidth) / picHeight, 1);
+    const topWall = snagWall(scene, windowGameSize.width / 2, rightWall.getBounds().top - 40).setScale(
+        (arenaWidth + 2 * picWidth) / picHeight,
+        1
+    );
     topWall.setStatic(true);
 
     return {
