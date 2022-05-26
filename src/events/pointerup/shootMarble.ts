@@ -22,7 +22,8 @@ export const shootMarbleFunc = (
             const angle = curve.getTangent(0).angle();
             const velocity = new Phaser.Math.Vector2(baseVelocity * Math.cos(angle), baseVelocity * Math.sin(angle));
             marble.setVelocity(velocity.x, velocity.y);
-            console.log(angle, baseVelocity * Math.cos(angle), baseVelocity * Math.sin(angle));
+            marble.setAwake();
+            console.log(marble.body.velocity);
             graphicsLineForSight.clear();
             p.off("pointermove", drawLineForSight, scene);
         }

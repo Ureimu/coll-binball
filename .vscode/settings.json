@@ -28,6 +28,7 @@
     "typescript.tsdk": "./node_modules/typescript/lib",
     "cSpell.words": [
         "acho",
+        "anims",
         "bodyparts",
         "bodysetting",
         "buble",

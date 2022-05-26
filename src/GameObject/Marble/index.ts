@@ -27,7 +27,7 @@ export function initMarble<T extends MarbleType>(
     t.recordType(marble, type);
     t.setData(marble, initData);
     marble.setScale(0.12, 0.12);
-    marble.setCircle(12);
+    marble.setCircle(8);
     marble.setIgnoreGravity(true);
     marble.setInteractive();
     marble.setCollisionCategory(MarbleCategory);

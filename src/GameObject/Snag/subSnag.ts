@@ -1,4 +1,5 @@
 import { initSnag, Snag } from ".";
+import { NullCategory } from "..";
 import { t } from "../data";
 import { NormalSnagData } from "./normalSnag";
 
@@ -34,5 +35,6 @@ export function snagSubSnag(scene: Phaser.Scene, x: number, y: number): Phaser.P
     snag.setCircle(radius); // set相关放在init上面
     initSnag(scene, snag, "snag:subSnag", initData);
     snag.setCollisionCategory(SubSnagCategory);
+    snag.setCollidesWith(NullCategory);
     return snag;
 }

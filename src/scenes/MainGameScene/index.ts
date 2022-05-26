@@ -1,9 +1,11 @@
 import Phaser from "phaser";
+import { refreshSnag } from "../../events/refreshSnag";
 import { score } from "../../events/updateScore";
 import { t } from "../../GameObject/data";
+import { snagPairManager } from "../../GameObject/Snag";
 import { ArenaBorder, createBorder } from "./createBorder";
 import { createMarble } from "./createMarble";
-import { createSnag, refreshSnag, SnagMapData } from "./createSnag";
+import { createSnag, SnagMapData } from "./createSnag";
 
 export default class MainGameScene extends Phaser.Scene {
     private scoreText!: Phaser.GameObjects.BitmapText;
@@ -31,6 +33,7 @@ export default class MainGameScene extends Phaser.Scene {
 
     public update(time: number, delta: number): void {
         this.snagMapData.update?.(time, delta);
+        snagPairManager.sync();
         if (!this.startTime) this.startTime = this.game.getTime();
         this.scoreText.setText([
             `分数: ${score}`,
