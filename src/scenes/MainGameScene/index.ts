@@ -29,7 +29,7 @@ export default class MainGameScene extends Phaser.Scene {
         this.snagMapData = createSnag(this, this.arenaBorder);
         this.marble = createMarble(this, this.snagMapData);
 
-        this.scoreText = this.add.bitmapText(50, 150, "childCircle", "");
+        this.scoreText = this.add.bitmapText(50, 50, "childCircle", "");
         this.scoreText.setText([]);
     }
 
@@ -51,6 +51,7 @@ export default class MainGameScene extends Phaser.Scene {
         if (this.marble.y > this.arenaBorder.bottom) {
             this.round += 1;
             refreshSnag(this.snagMapData);
+            this.marble.destroy();
             this.marble = createMarble(this, this.snagMapData);
         }
     }
