@@ -3,13 +3,14 @@ import Phaser from "phaser";
 import PreloaderScene from "./scenes/PreloaderScene";
 import MainGameScene from "./scenes/MainGameScene";
 export const windowGameSize = {
-    width: window.innerWidth,
-    height: window.innerHeight
+    width: 1440,
+    height: 900
 };
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     scale: {
-        mode: Phaser.Scale.FIT,
+        mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
+        autoRound: true,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: windowGameSize.width,
         height: windowGameSize.height

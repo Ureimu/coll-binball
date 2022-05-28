@@ -30,7 +30,7 @@ export default class MainGameScene extends Phaser.Scene {
         this.marble = createMarble(this, this.snagMapData);
 
         this.scoreText = this.add.bitmapText(50, 50, "childCircle", "");
-        this.scoreText.setText([]);
+        this.scoreText.setText([]).setDepth(100);
     }
 
     public update(time: number, delta: number): void {
