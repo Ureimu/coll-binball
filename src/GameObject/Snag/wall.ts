@@ -1,11 +1,10 @@
 import { initSnag, Snag } from ".";
-import { MarbleCategory } from "../Marble";
+import { SnagWallCategory, MarbleCategory } from "../type";
 
 export interface Wall extends Snag {
     type: "snag:wall";
     kickTime: number;
 }
-export const SnagWallCategory = 2 ** 1;
 
 export function snagWall(scene: Phaser.Scene, x: number, y: number): Phaser.Physics.Matter.Sprite {
     const snag = scene.matter.add.sprite(x, y, "ground");
@@ -14,9 +13,14 @@ export function snagWall(scene: Phaser.Scene, x: number, y: number): Phaser.Phys
         durable: 0,
         bounce: 1,
         scoreBonus: 0,
-        isCriticallyStrikeSnag: false,
-        isRefreshSnag: false,
-        kickTime: 0
+        kickTime: 0,
+        elasticity: 1,
+        liveData: {
+            collidedNum: 0,
+            elasticity: 1,
+            isCriticallyStrikeSnag: false,
+            isRefreshSnag: false
+        }
     };
     initSnag(scene, snag, "snag:wall", initData);
     snag.setCollisionCategory(SnagWallCategory);

@@ -1,7 +1,5 @@
 import { t } from "../data";
-import { SnagCategory } from "../Snag";
-import { SnagWallCategory } from "../Snag/wall";
-import { SpecDataByType } from "../type";
+import { MarbleCategory, SnagCategory, SnagWallCategory, SpecDataByType } from "../type";
 import { marbleKnife } from "./knife";
 import { marbleStone } from "./stone";
 import { MarbleType } from "./type";
@@ -17,8 +15,9 @@ export interface Marble {
     damage: number;
     csDamage: number;
     readyToShoot: boolean;
+    elasticity: number;
 }
-export const MarbleCategory = 2 ** 2;
+
 export function initMarble<T extends MarbleType>(
     marble: Phaser.Physics.Matter.Sprite,
     type: T,

@@ -24,6 +24,7 @@
         "typings/**": true,
         "**/.nyc_output": true,
         "**/coverage": true,
+        "build/**": true
     },
     "typescript.tsdk": "./node_modules/typescript/lib",
     "cSpell.words": [

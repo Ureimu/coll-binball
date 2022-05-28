@@ -17,7 +17,7 @@ const cache = new CacheId((scene: Phaser.Scene) => {
     const width = radius * widthMul;
     const height = radius * heightMul;
     const lineWidth = radius * lineWidthMul;
-    graphics.fillStyle(0x666666, 0.3);
+    graphics.fillStyle(0xccddcc, 0.3);
     graphics.fillCircle(width / 2, height / 2, radius);
     // graphics.lineStyle(lineWidth, 0xcccccc, 1);
     // graphics.strokeCircle(width / 2, height / 2, radius);
@@ -35,8 +35,13 @@ export function snagNormalSnag(scene: Phaser.Scene, x: number, y: number): Phase
         durable: 0,
         bounce: 1,
         scoreBonus: 0,
-        isCriticallyStrikeSnag: false,
-        isRefreshSnag: false
+        elasticity: 1,
+        liveData: {
+            collidedNum: 0,
+            isCriticallyStrikeSnag: false,
+            isRefreshSnag: false,
+            elasticity: 1
+        }
     };
     snag.setCircle(radius); // set相关放在init上面
     initSnag(scene, snag, "snag:normalSnag", initData);

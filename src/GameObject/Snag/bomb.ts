@@ -4,8 +4,6 @@ import { NormalSnagData } from "./normalSnag";
 export interface Bomb extends Snag {
     type: "snag:bomb";
     kickTime: number;
-    readonly isRefreshSnag: false;
-    readonly isCriticallyStrikeSnag: false;
 }
 
 export function snagBomb(scene: Phaser.Scene, x: number, y: number): Phaser.Physics.Matter.Sprite {
@@ -30,8 +28,13 @@ export function snagBomb(scene: Phaser.Scene, x: number, y: number): Phaser.Phys
         durable: 0,
         bounce: 1,
         scoreBonus: 0,
-        isCriticallyStrikeSnag: false,
-        isRefreshSnag: false
+        elasticity: 1,
+        liveData: {
+            collidedNum: 0,
+            isCriticallyStrikeSnag: false,
+            isRefreshSnag: false,
+            elasticity: 1
+        }
     };
     snag.setCircle(radius); // set相关放在init上面
     initSnag(scene, snag, "snag:bomb", initData);

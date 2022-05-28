@@ -2,17 +2,13 @@ import _ from "lodash";
 import { refreshSnag } from "../../events/refreshSnag";
 import { t } from "../../GameObject/data";
 import { NormalSnag, NormalSnagData } from "../../GameObject/Snag/normalSnag";
-import { SnagPair } from "../../GameObject/Snag/SnagPair";
-import { testMap2 } from "../../snagMap/testMap2";
+import { testMap3 } from "../../snagMap/example/curveMove";
+import { testMap2 } from "../../snagMap/example/mirrorShuttle";
 import { CacheId } from "../../utils/Cache";
 import { ArenaBorder } from "./createBorder";
-export interface SnagMapData {
-    initMarblePos: { x: number; y: number }[];
-    snagPairList: SnagPair[];
-    update?: Phaser.Scene["update"];
-}
+import { SnagMapData } from "../../snagMap/type";
 export function createSnag(scene: Phaser.Scene, border: ArenaBorder): SnagMapData {
-    const data = testMap2(scene, border);
+    const data = testMap3(scene, border);
     refreshSnag(data);
     return data;
 }

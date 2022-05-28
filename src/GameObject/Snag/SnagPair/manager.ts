@@ -1,13 +1,14 @@
 import { SnagPair } from ".";
+import { SnagType } from "../type";
 
 type ObjType = Phaser.Physics.Matter.Sprite;
 export class SnagPairManager {
     public snagMapM2S: Map<ObjType, ObjType> = new Map<ObjType, ObjType>();
     public snagMapS2M: Map<ObjType, ObjType> = new Map<ObjType, ObjType>();
-    public mainSnagPairMap: Map<ObjType, SnagPair> = new Map<ObjType, SnagPair>();
-    public subSnagPairMap: Map<ObjType, SnagPair> = new Map<ObjType, SnagPair>();
-    public constructor(private pairList: SnagPair[] = []) {}
-    public add(pair: SnagPair) {
+    public mainSnagPairMap: Map<ObjType, SnagPair<SnagType>> = new Map<ObjType, SnagPair<SnagType>>();
+    public subSnagPairMap: Map<ObjType, SnagPair<SnagType>> = new Map<ObjType, SnagPair<SnagType>>();
+    public constructor(private pairList: SnagPair<SnagType>[] = []) {}
+    public add(pair: SnagPair<SnagType>) {
         this.pairList.push(pair);
         this.snagMapS2M.set(pair.subSnag, pair.mainSnag);
         this.snagMapM2S.set(pair.mainSnag, pair.subSnag);
@@ -48,10 +49,10 @@ export class SnagPairManager {
             }
         });
     }
-    public getByMain(mainSnag: Phaser.Physics.Matter.Sprite): SnagPair | undefined {
+    public getByMain(mainSnag: ObjType): SnagPair<SnagType> | undefined {
         return this.mainSnagPairMap.get(mainSnag);
     }
-    public getBySub(subSnag: Phaser.Physics.Matter.Sprite): SnagPair | undefined {
+    public getBySub(subSnag: ObjType): SnagPair<SnagType> | undefined {
         return this.subSnagPairMap.get(subSnag);
     }
 }

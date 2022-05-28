@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 import { GameObjectKind, GameObjectType, SpecDataByType } from "./type";
 type ObjType = Phaser.GameObjects.GameObject;
-const objDataMap = new Map<ObjType, GameObjectKind>();
+const objDataMap = new Map<ObjType, Map<GameObjectType, GameObjectKind>>();
 const objTypeMap = new Map<ObjType, GameObjectType>();
 
 export class t {
@@ -14,10 +14,13 @@ export class t {
     }
 
     public static getData<T extends GameObjectType>(obj: ObjType, type: T): SpecDataByType<T> {
-        return objDataMap.get(obj) as SpecDataByType<T>;
+        return objDataMap.get(obj)?.get(type) as SpecDataByType<T>;
     }
 
     public static setData<T extends GameObjectType>(obj: ObjType, data: SpecDataByType<T>): void {
-        objDataMap.set(obj, data);
+        if (!objDataMap.has(obj)) {
+            objDataMap.set(obj, new Map());
+        }
+        objDataMap.get(obj)?.set(data.type, data);
     }
 }

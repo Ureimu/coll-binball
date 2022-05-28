@@ -1,7 +1,6 @@
-import { NullCategory } from "..";
 import { t } from "../data";
-import { MarbleCategory } from "../Marble";
-import { SpecDataByType } from "../type";
+
+import { BackWallCategory, MarbleCategory, NullCategory, SnagCategory, SpecDataByType } from "../type";
 import { snagBomb } from "./bomb";
 import { snagNormalSnag } from "./normalSnag";
 import { SnagPair } from "./SnagPair";
@@ -15,11 +14,19 @@ export interface Snag {
     durable: number;
     bounce: number;
     scoreBonus: number;
-    isRefreshSnag: boolean;
-    isCriticallyStrikeSnag: boolean;
+    elasticity: number;
+    liveData: {
+        collidedNum: number;
+        snagDestroyTimeOut?: NodeJS.Timeout;
+        isRefreshSnag: boolean;
+        isCriticallyStrikeSnag: boolean;
+        elasticity: number;
+    };
 }
-export const SnagCategory = 2 ** 0;
+
+// eslint-disable-next-line no-bitwise
 export const SnagCollideMask = MarbleCategory;
+// !WARNING: if you want snag change its velocity when collusion, please remember to set SubSnagCollideMask, not set SnagCollideMask.
 export const SnagCollideMaskOnNotExist = NullCategory;
 export function initSnag<T extends SnagType>(
     scene: Phaser.Scene,
@@ -29,10 +36,12 @@ export function initSnag<T extends SnagType>(
 ): void {
     t.recordType(snag, type);
     t.setData(snag, initData);
-    console.log(t.getData(snag, type));
+    // console.log(t.getData(snag, type));
+    // snag.setFriction(0);
+    // snag.setStatic(true);
     snag.setFrictionAir(0);
-    snag.setFrictionStatic(1);
     snag.setIgnoreGravity(true);
+    snag.setBounce(initData.bounce);
     snag.setMass(1e20); // 让碰撞的动量几乎完整的返回给marble
     snag.setCollisionCategory(SnagCategory);
     snag.setCollidesWith(SnagCollideMask);
@@ -50,9 +59,9 @@ export const snagCreatorList: {
 
 export const snagPairManager = new SnagPairManager();
 
-export function addSnagPair(type: SnagType, scene: Phaser.Scene, x: number, y: number): SnagPair {
+export function addSnagPair<T extends SnagType>(type: T, scene: Phaser.Scene, x: number, y: number): SnagPair<T> {
     const mainSnag = snagCreatorList[type](scene, x, y);
-    const pair = new SnagPair(mainSnag);
+    const pair = new SnagPair<T>(mainSnag);
     snagPairManager.add(pair);
     return pair;
 }

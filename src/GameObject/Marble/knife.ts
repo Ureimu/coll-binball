@@ -11,7 +11,8 @@ export function marbleKnife(scene: Phaser.Scene, x: number, y: number): Phaser.P
         totalDamage: 0,
         readyToShoot: true,
         damage: 1,
-        csDamage: 7
+        csDamage: 7,
+        elasticity: 5
     });
 
     return marble;

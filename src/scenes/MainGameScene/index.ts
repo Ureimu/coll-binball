@@ -5,7 +5,8 @@ import { t } from "../../GameObject/data";
 import { snagPairManager } from "../../GameObject/Snag";
 import { ArenaBorder, createBorder } from "./createBorder";
 import { createMarble } from "./createMarble";
-import { createSnag, SnagMapData } from "./createSnag";
+import { createSnag } from "./createSnag";
+import { SnagMapData } from "../../snagMap/type";
 
 export default class MainGameScene extends Phaser.Scene {
     private scoreText!: Phaser.GameObjects.BitmapText;
@@ -14,6 +15,7 @@ export default class MainGameScene extends Phaser.Scene {
     private snagMapData!: SnagMapData;
     private round = 1;
     private startTime = 0;
+    private tick = 0;
     public constructor() {
         super("mainGame");
     }
@@ -32,7 +34,8 @@ export default class MainGameScene extends Phaser.Scene {
     }
 
     public update(time: number, delta: number): void {
-        this.snagMapData.update?.(time, delta);
+        this.tick += 1;
+        this.snagMapData.update?.({ tick: this.tick, time, delta });
         snagPairManager.sync();
         if (!this.startTime) this.startTime = this.game.getTime();
         this.scoreText.setText([
@@ -40,7 +43,10 @@ export default class MainGameScene extends Phaser.Scene {
             `球速: ${new Phaser.Math.Vector2(this.marble.body.velocity).length().toFixed(0)}`,
             `弹珠类型: ${t.type(this.marble).split(":")[1]}`,
             `回合: ${this.round}`,
-            `fps: ${(this.game.getFrame() / ((this.game.getTime() - this.startTime) / 1000)).toFixed(0)}`
+            `fps: ${(this.game.getFrame() / ((this.game.getTime() - this.startTime) / 1000)).toFixed(0)}`,
+            `time: ${time.toFixed(0)}`,
+            `objNum: ${this.matter.systems.updateList.length}`,
+            `displayObjNum: ${this.scene.systems.displayList.length}`
         ]);
         if (this.marble.y > this.arenaBorder.bottom) {
             this.round += 1;

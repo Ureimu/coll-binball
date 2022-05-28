@@ -1,12 +1,18 @@
 import { initSnag, Snag } from ".";
-import { NullCategory } from "..";
+import { Coord } from "../../type/pos";
+
 import { t } from "../data";
+import { BackWallCategory, NullCategory, SubSnagCategory } from "../type";
 import { NormalSnagData } from "./normalSnag";
 
 export interface SubSnag extends Snag {
     type: "snag:subSnag";
+    startPos: Coord;
 }
-export const SubSnagCategory = 2 ** 30;
+
+// eslint-disable-next-line no-bitwise
+export const SubSnagCollideMask = BackWallCategory;
+
 export function snagSubSnag(scene: Phaser.Scene, x: number, y: number): Phaser.Physics.Matter.Sprite {
     // draw graphics
     const graphics = scene.add.graphics();
@@ -15,7 +21,7 @@ export function snagSubSnag(scene: Phaser.Scene, x: number, y: number): Phaser.P
     const width = trailerRadius * widthMul;
     const height = trailerRadius * heightMul;
     const lineWidth = radius * lineWidthMul;
-    graphics.fillStyle(0x666666, 0.3);
+    graphics.fillStyle(0xccddcc, 0.3);
     graphics.fillCircle(width / 2, height / 2, radius);
     graphics.lineStyle(lineWidth, 0xcccccc, 1);
     graphics.strokeCircle(width / 2, height / 2, radius);
@@ -29,12 +35,20 @@ export function snagSubSnag(scene: Phaser.Scene, x: number, y: number): Phaser.P
         durable: 0,
         bounce: 1,
         scoreBonus: 0,
-        isCriticallyStrikeSnag: false,
-        isRefreshSnag: false
+        elasticity: 1,
+        startPos: { x, y },
+        liveData: {
+            collidedNum: 0,
+            isCriticallyStrikeSnag: false,
+            isRefreshSnag: false,
+            elasticity: 1
+        }
     };
     snag.setCircle(radius); // set相关放在init上面
     initSnag(scene, snag, "snag:subSnag", initData);
+    snag.setDepth(-1);
     snag.setCollisionCategory(SubSnagCategory);
-    snag.setCollidesWith(NullCategory);
+    snag.setCollidesWith(SubSnagCollideMask);
+    snag.setVisible(false);
     return snag;
 }
