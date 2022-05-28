@@ -6,10 +6,12 @@ export const windowGameSize = {
     width: 1440,
     height: 900
 };
+const scaleMode =
+    window.innerWidth > window.innerHeight ? Phaser.Scale.HEIGHT_CONTROLS_WIDTH : Phaser.Scale.WIDTH_CONTROLS_HEIGHT;
 const config: Phaser.Types.Core.GameConfig = {
     type: Phaser.AUTO,
     scale: {
-        mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
+        mode: scaleMode,
         autoRound: true,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: windowGameSize.width,
