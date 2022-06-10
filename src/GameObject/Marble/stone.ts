@@ -5,7 +5,7 @@ export interface Stone extends Marble {
 }
 
 export function marbleStone(scene: Phaser.Scene, x: number, y: number): Phaser.Physics.Matter.Sprite {
-    const marble = scene.matter.add.sprite(x, y, "acho");
+    const marble = scene.matter.add.sprite(x, y, "marble-stone");
     initMarble(marble, "marble:stone", {
         type: "marble:stone",
         criticallyStrike: false,

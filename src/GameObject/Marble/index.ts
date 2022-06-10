@@ -1,5 +1,5 @@
 import { t } from "../data";
-import { MarbleCategory, SnagCategory, SnagWallCategory, SpecDataByType } from "../type";
+import { MarbleCategory, NullCategory, SnagCategory, SnagWallCategory, SpecDataByType } from "../type";
 import { marbleKnife } from "./knife";
 import { marbleStone } from "./stone";
 import { MarbleType } from "./type";
@@ -25,13 +25,11 @@ export function initMarble<T extends MarbleType>(
 ): void {
     t.recordType(marble, type);
     t.setData(marble, initData);
-    marble.setScale(0.12, 0.12);
-    marble.setCircle(8);
+    marble.setCircle(16);
     marble.setIgnoreGravity(true);
     marble.setInteractive();
     marble.setCollisionCategory(MarbleCategory);
-    // eslint-disable-next-line no-bitwise
-    marble.setCollidesWith(SnagCategory | SnagWallCategory);
+    marble.setCollidesWith(NullCategory);
 }
 
 const marbleCreatorList: {

@@ -2,11 +2,12 @@
     "name": "ball",
     "version": "1.0.0",
     "description": "ball",
-    "main": "src/main.ts",
+    "main": "dist/main.js",
     "scripts": {
-        "start": "snowpack dev",
+        "start": "npm run pack && electron .",
+        "pack": "cross-env NODE_ENV=development webpack",
         "prebuild": "tsc && npm run lint",
-        "build": "snowpack build",
+        "build": "cross-env NODE_ENV=production webpack",
         "lint": "eslint src --ext .ts",
         "lint:fix": "eslint src --ext .ts --fix",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,17 +18,26 @@
         "@types/lodash": "^4.14.182",
         "@typescript-eslint/eslint-plugin": "^5.25.0",
         "@typescript-eslint/parser": "^5.25.0",
+        "cross-env": "^7.0.3",
+        "electron": "^19.0.4",
         "eslint": "^8.16.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-import-resolver-typescript": "^2.7.1",
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-prettier": "^4.0.0",
+        "http-server": "^14.1.1",
         "phaser": "^3.55.2",
         "prettier": "^2.6.2",
         "snowpack": "^3.8.8",
-        "typescript": "^4.6.3"
+        "typescript": "^4.6.3",
+        "webpack": "^5.73.0",
+        "webpack-cli": "^4.9.2"
     },
     "dependencies": {
-        "lodash": "^4.17.21"
+        "electron-connect": "^0.6.3",
+        "file-loader": "^6.2.0",
+        "html-webpack-plugin": "^5.5.0",
+        "lodash": "^4.17.21",
+        "ts-loader": "^9.3.0"
     }
 }

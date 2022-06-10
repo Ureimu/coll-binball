@@ -5,7 +5,7 @@ import { ArenaBorder } from "../../renderer/scenes/MainGameScene/createBorder";
 import { SnagMapData } from "../type";
 import { UpdateLogic } from "../utils/update";
 
-export function testMap2(scene: Phaser.Scene, border: ArenaBorder): SnagMapData {
+export function wall(scene: Phaser.Scene, border: ArenaBorder): SnagMapData {
     const matter = scene.matter;
     //  Create the bricks
     const bricksList: SnagPair<"snag:normalSnag">[] = [];

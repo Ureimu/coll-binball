@@ -1,5 +1,6 @@
 import { t } from "../../GameObject/data";
 import { MarbleKind } from "../../GameObject/Marble/type";
+import { SnagCategory, SnagWallCategory } from "../../GameObject/type";
 
 export const shootMarbleFunc = (
     marble: Phaser.Physics.Matter.Sprite,
@@ -14,6 +15,8 @@ export const shootMarbleFunc = (
             marbleData.readyToShoot = false;
             marble.setBounce(1);
             marble.setIgnoreGravity(false);
+            // eslint-disable-next-line no-bitwise
+            marble.setCollidesWith(SnagCategory | SnagWallCategory);
             console.log("setIgnoreGravity to false");
             const baseVelocity = 15;
             const achoPos = new Phaser.Math.Vector2(marble);

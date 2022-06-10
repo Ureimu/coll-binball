@@ -4,9 +4,10 @@ import { SpecDataByType } from "../../type";
 import { snagSubSnag, SubSnag } from "../subSnag";
 import { SnagType, SpecSnagKind } from "../type";
 
-type SubSnagObjTypeHere = Phaser.Physics.Matter.Sprite;
+type SubSnagObjType = Phaser.Physics.Matter.Sprite;
+type MainSnagObjType = Phaser.Physics.Matter.Sprite;
 export class SnagPair<MainSnagType extends SnagType> {
-    public subSnag: SubSnagObjTypeHere;
+    public subSnag: SubSnagObjType;
     public mainSnagType: MainSnagType;
     public subSnagType: SubSnag["type"] = "snag:subSnag";
     public managerUpdateMainSnag: "no" | "destroy" | "recreate" = "no";
@@ -14,7 +15,7 @@ export class SnagPair<MainSnagType extends SnagType> {
     public get existMainSnag() {
         return this.isExistMainSnag;
     }
-    public constructor(public mainSnag: Phaser.Physics.Matter.Sprite) {
+    public constructor(public mainSnag: MainSnagObjType) {
         this.subSnag = snagSubSnag(this.mainSnag.scene, this.mainSnag.x, this.mainSnag.y);
         this.mainSnagType = t.type(this.mainSnag) as MainSnagType;
         this.isExistMainSnag = true;
@@ -47,7 +48,7 @@ export class SnagPair<MainSnagType extends SnagType> {
         }
     }
 
-    public recreateMainSnag(): Phaser.Physics.Matter.Sprite {
+    public recreateMainSnag(): MainSnagObjType {
         const reMainSnag = snagCreatorList[this.mainSnagType](this.subSnag.scene, this.subSnag.x, this.subSnag.y);
         this.setData(reMainSnag, this.data("main"));
         this.mainSnag = reMainSnag;
@@ -60,7 +61,7 @@ export class SnagPair<MainSnagType extends SnagType> {
         return reMainSnag;
     }
 
-    public setSnags(func: (sprite: Phaser.Physics.Matter.Sprite) => void) {
+    public setSnags(func: (sprite: MainSnagObjType | SubSnagObjType) => void) {
         [this.mainSnag, this.subSnag].filter(i => i.body).forEach(func);
     }
 
@@ -84,10 +85,7 @@ export class SnagPair<MainSnagType extends SnagType> {
         }
     }
 
-    private setData(
-        obj: SubSnagObjTypeHere,
-        data: SpecSnagKind<MainSnagType> | SpecSnagKind<typeof this["subSnagType"]>
-    ) {
+    private setData(obj: SubSnagObjType, data: SpecSnagKind<MainSnagType> | SpecSnagKind<typeof this["subSnagType"]>) {
         t.setData(obj, data);
     }
 }

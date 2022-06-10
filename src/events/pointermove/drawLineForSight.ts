@@ -8,6 +8,7 @@ export const drawLineForSightFunc = (
         const pointerPos = new Phaser.Math.Vector2(pointer);
         const curve = new Phaser.Curves.Line(achoPos, pointerPos);
         graphicsLineForSight.clear();
+        marble.setAngle((curve.getTangent(0).angle() * 180) / Math.PI);
         curve.draw(graphicsLineForSight);
     };
 };

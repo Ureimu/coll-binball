@@ -1,7 +1,7 @@
 import { addSnagPair } from "../../GameObject/Snag";
 import { snagNormalSnag } from "../../GameObject/Snag/normalSnag";
 import { SnagPair } from "../../GameObject/Snag/SnagPair";
-import { ArenaBorder } from "../../scenes/MainGameScene/createBorder";
+import { ArenaBorder } from "../../renderer/scenes/MainGameScene/createBorder";
 import { SnagMapData } from "../type";
 
 export function testMap(scene: Phaser.Scene, border: ArenaBorder): SnagMapData {

@@ -1,7 +1,7 @@
 import { NormalSnagData } from "../../../GameObject/Snag/normalSnag";
 import { SnagPair } from "../../../GameObject/Snag/SnagPair";
 import { SnagType } from "../../../GameObject/Snag/type";
-import { ArenaBorder } from "../../../scenes/MainGameScene/createBorder";
+import { ArenaBorder } from "../../../renderer/scenes/MainGameScene/createBorder";
 import { SnagMapUpdateParas } from "../../type";
 
 export class UpdateLogic<T extends SnagType> {

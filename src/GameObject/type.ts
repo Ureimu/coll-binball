@@ -31,3 +31,15 @@ export const Categories = {
 };
 // checkCategoryIsUnique
 Object.entries(Categories).forEach(([type, num]) => categoryManager.setCategory(type, num));
+
+const typeList: { [T in GameObjectType]: 0 } = {
+    unknown: 0,
+    "backWall:rectangle": 0,
+    "marble:knife": 0,
+    "marble:stone": 0,
+    "snag:bomb": 0,
+    "snag:normalSnag": 0,
+    "snag:subSnag": 0,
+    "snag:wall": 0
+};
+export const GameObjectsTypeList: GameObjectType[] = Object.keys(typeList) as GameObjectType[];

@@ -19,15 +19,15 @@ export function refreshSnag(data: SnagMapData): void {
     });
     const randomArray = _.shuffle(normalSnagList).slice(0, totalNum);
     for (let index = 0; index < refreshSnagNum; index++) {
-        const element = randomArray[index][0];
-        const sprite = randomArray[index][1];
+        const element = randomArray[index]?.[0];
+        const sprite = randomArray[index]?.[1];
         if (!element) continue;
         element.liveData.isRefreshSnag = true;
         // TODO draw RefreshSnag here
     }
     for (let index = refreshSnagNum; index < totalNum; index++) {
-        const element = randomArray[index][0];
-        const sprite = randomArray[index][1];
+        const element = randomArray[index]?.[0];
+        const sprite = randomArray[index]?.[1];
         if (!element) continue;
         element.liveData.isCriticallyStrikeSnag = true;
         // TODO draw CriticallyStrikeSnag here
