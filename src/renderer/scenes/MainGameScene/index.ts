@@ -26,7 +26,7 @@ export default class MainGameScene extends Phaser.Scene {
             width: 900,
             height: 500
         };
-
+        snagPairManager.clear();
         this.arenaBorder = createBorder(this, arenaSize);
         const snagMapFunc = createUI(this, this.arenaBorder);
         this.snagMapData = createSnag(this, this.arenaBorder, snagMapFunc);
@@ -53,7 +53,9 @@ export default class MainGameScene extends Phaser.Scene {
         ]);
         if (this.marble.y > this.arenaBorder.bottom) {
             this.round += 1;
-            refreshSnag(this.snagMapData);
+            if (this.scene.isActive()) {
+                refreshSnag(this.snagMapData);
+            }
             this.marble.destroy();
             this.marble = createMarble(this, this.snagMapData);
         }

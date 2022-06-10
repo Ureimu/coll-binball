@@ -13,7 +13,7 @@ export function marbleStone(scene: Phaser.Scene, x: number, y: number): Phaser.P
         readyToShoot: true,
         damage: 1,
         csDamage: 2,
-        elasticity: 3
+        elasticity: 1
     });
 
     return marble;

@@ -8,13 +8,13 @@ export interface ParameterFunction {
 }
 export type SingleParameterFunction = (fractile: number, time: number) => number;
 export class ParameterEquationList {
-    public constructor(public length: number) {
+    public constructor(public length: number, public initTime: number) {
         return;
     }
 
     public pos(index: number, timeByMs: number, parameterFunction: ParameterFunction): Coord {
         const fractile = index / this.length;
-        const timeBySecond = timeByMs / 1000;
+        const timeBySecond = (timeByMs - this.initTime) / 1000;
         return {
             x: parameterFunction.x(fractile, timeBySecond),
             y: parameterFunction.y(fractile, timeBySecond)
@@ -65,6 +65,20 @@ export class ParameterEquationList {
         return {
             x: (fractile, time) => radius.x(fractile, time) * sin(twoPi * duration.x(fractile, time)),
             y: (fractile, time) => radius.y(fractile, time) * cos(twoPi * duration.y(fractile, time))
+        };
+    };
+
+    public sin = (duration = this.fractile): ParameterFunction => {
+        return {
+            x: (fractile, time) => sin(twoPi * duration.x(fractile, time)),
+            y: (fractile, time) => sin(twoPi * duration.y(fractile, time))
+        };
+    };
+
+    public cos = (duration = this.fractile): ParameterFunction => {
+        return {
+            x: (fractile, time) => cos(twoPi * duration.x(fractile, time)),
+            y: (fractile, time) => cos(twoPi * duration.y(fractile, time))
         };
     };
 

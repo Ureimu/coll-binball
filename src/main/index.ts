@@ -3,8 +3,8 @@ import path from "path";
 const createWindow = async () => {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        height: 1080,
+        width: 1920,
         webPreferences: {
             preload: path.join(__dirname, "preload.js")
         },
@@ -12,8 +12,9 @@ const createWindow = async () => {
     });
 
     // 加载 index.html
-    await mainWindow.loadFile("./index.html");
-
+    await mainWindow.loadFile("./dist/index.html");
+    console.log("test");
+    mainWindow.show();
     // 打开开发工具
     mainWindow.webContents.openDevTools();
 };
@@ -22,7 +23,7 @@ const createWindow = async () => {
 // 和创建浏览器窗口的时候调用
 // 部分 API 在 ready 事件触发后才能使用。
 void app.whenReady().then(() => {
-    void createWindow().finally();
+    void createWindow();
 
     app.on("activate", () => {
         // On macOS it's common to re-create a window in the app when the

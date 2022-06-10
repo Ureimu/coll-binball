@@ -8,30 +8,31 @@ import { SnagMapData } from "../type";
 import { ParameterEquationList } from "../utils/ParameterEquation";
 import { UpdateLogic } from "../utils/update";
 
-export function wave(scene: Phaser.Scene, border: ArenaBorder): SnagMapData {
+export function disk(scene: Phaser.Scene, border: ArenaBorder): SnagMapData {
     const matter = scene.matter;
     //  Create the bricks
     const bricksList: SnagPair<"snag:normalSnag">[] = [];
-    const numTotal = 400;
+    const numTotal = 500;
     const parasList = new ParameterEquationList(numTotal, scene.time.now);
-    const { circle, line, polyLine, c, mul, add, group, div, time, fractile, range } = parasList;
-    const circleF = circle(
-        c(50), // 半径为50
-        add(
-            div(
-                time,
-                c(10) // 十秒转一圈
-            ),
-            fractile
+    const { circle, line, polyLine, c, mul, add, group, div, time, fractile, range, sin } = parasList;
+    const center = c(border.center.x, border.center.y);
+    const parasFunc = group(
+        ...range(15).map(i =>
+            add(
+                center,
+                circle(
+                    mul(
+                        c(300),
+                        sin(
+                            div(add(time, c(i * 0.15)), c(10)) // test
+                        )
+                    ),
+                    add(fractile)
+                    // test
+                )
+            )
         )
     );
-    const posCircle = (index: number) =>
-        add(
-            circleF,
-            c(border.center.x + index * 100, border.center.y + index * 100),
-            mul(time, { x: c(-45).x, y: c(0).y })
-        );
-    const parasFunc = polyLine(fractile, ...range(27).map(index => posCircle(index)));
     for (let i = 0; i < numTotal; i++) {
         const pos = parasList.pos(i, 0, parasFunc);
         const snagPair = addSnagPair("snag:normalSnag", scene, pos.x, pos.y);

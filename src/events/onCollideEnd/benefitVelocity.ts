@@ -29,7 +29,7 @@ export const benefitVelocityFunc = (
         const marbleData = t.getData(myBallSprite, marbleType) as MarbleKind;
 
         snagData.liveData.elasticity = snagData.elasticity * 2 ** -(snagData.liveData.collidedNum - 1);
-        console.log(snagData.elasticity.toFixed(2));
+        // console.log(snagData.elasticity.toFixed(2));
 
         const benefitVelocity = marbleData.elasticity * snagData.liveData.elasticity;
         const myBallVelocity = new Phaser.Math.Vector2(myBall.velocity);

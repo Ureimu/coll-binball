@@ -8,6 +8,13 @@ export class SnagPairManager {
     public mainSnagPairMap: Map<ObjType, SnagPair<SnagType>> = new Map<ObjType, SnagPair<SnagType>>();
     public subSnagPairMap: Map<ObjType, SnagPair<SnagType>> = new Map<ObjType, SnagPair<SnagType>>();
     public constructor(private pairList: SnagPair<SnagType>[] = []) {}
+    public clear(): void {
+        this.pairList = [];
+        this.snagMapS2M.clear();
+        this.snagMapM2S.clear();
+        this.mainSnagPairMap.clear();
+        this.subSnagPairMap.clear();
+    }
     public add(pair: SnagPair<SnagType>) {
         this.pairList.push(pair);
         this.snagMapS2M.set(pair.subSnag, pair.mainSnag);

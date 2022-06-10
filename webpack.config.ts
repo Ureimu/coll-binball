@@ -1,25 +1,40 @@
-const { DefinePlugin } = require("webpack");
-const { merge }= require("webpack-merge");
-const path = require("path");
-const HtmlPlugin = require("html-webpack-plugin");
-const { server: electronConnect } = require("electron-connect");
+import { Compiler, Configuration, DefinePlugin } from "webpack";
+import { merge } from "webpack-merge";
+import path from "path";
+import HtmlPlugin from "html-webpack-plugin";
 
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === "development";
 
 const server = isDev
-    ? electronConnect.create({
-          path: path.join(__dirname, "dist", "main.js"),
-          logLevel: 0,
-          stopOnClose: true
-      })
-    : {};
+    ? {
+          restart() {
+              console.log("finish packing, restart server");
+          },
+          reload() {
+              console.log("finish packing, reload server");
+          },
+          start() {
+              console.log("finish packing");
+          }
+      }
+    : {
+          restart() {
+              console.log("finish packing,restart server");
+          },
+          reload() {
+              console.log("finish packing, reload server");
+          },
+          start() {
+              console.log("finish packing");
+          }
+      };
 
 const ConnectPlugin = (isMain = true) => {
     let isStarted = false;
 
     return {
-        apply(compiler) {
+        apply(compiler: Compiler) {
             compiler.hooks.done.tap("ConnectPlugin", () => {
                 if (isStarted) {
                     server[isMain ? "restart" : "reload"]();
@@ -32,7 +47,7 @@ const ConnectPlugin = (isMain = true) => {
     };
 };
 
-const common = {
+const common: Configuration = {
     mode: isDev ? "development" : "production",
     devtool: isDev ? "source-map" : false,
     output: {
@@ -120,4 +135,4 @@ const renderer = merge(common, {
     ]
 });
 
-exports.default = [renderer, preload, main];
+export default [renderer, preload, main];

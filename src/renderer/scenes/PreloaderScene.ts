@@ -5,6 +5,9 @@ import childCircleFnt from "@assets/fonts/childCircle/childCircle.fnt";
 import childCircle from "@assets/fonts/childCircle/childCircle_0.png";
 import marbleStone from "@assets/marble-stone.png";
 import normalSnag from "@assets/normalSnag.png";
+import normalSnagRe from "@assets/normalSnag-re.png";
+import normalSnagCs from "@assets/normalSnag-cs.png";
+
 export default class Preloader extends Phaser.Scene {
     public constructor() {
         super("preloader");
@@ -16,6 +19,8 @@ export default class Preloader extends Phaser.Scene {
         this.load.image("normalSnag", normalSnag);
         this.load.image("marble-stone", marbleStone);
         this.load.image("marble-knife", marbleKnife);
+        this.load.image("normalSnag-re", normalSnagRe);
+        this.load.image("normalSnag-cs", normalSnagCs);
         this.scale.autoCenter = 2;
     }
 
